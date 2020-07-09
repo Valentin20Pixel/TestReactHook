@@ -1,0 +1,23 @@
+
+Object {
+  "film": Object {
+    "adult": false,
+    "backdrop_path": "/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg",
+    "genre_ids": Array [
+      28,
+      12,
+      878,
+    ],
+    "id": 330459,
+    "original_language": "en",
+    "original_title": "Rogue One: A Star Wars Story",
+    "overview": "Situé entre les épisodes III et IV de la saga Star Wars, le film nous entraîne aux côtés d’individus ordinaires qui, pour rester fidèles à leurs valeurs, vont tenter l’impossible au péril de leur vie. Ils n’avaient pas prévu de devenir des héros, mais dans une époque de
+plus en plus sombre, ils vont devoir dérober les plans de l’Étoile de la Mort, l’arme de destruction ultime de l’Empire.",
+    "popularity": 27.329,
+    "poster_path": "/i0yw1mFbB7sNGHCs7EXZPzFkdA1.jpg",
+    "release_date": "2016-12-14",
+    "title": "Rogue One - A Star Wars Story",
+    "video": false,
+    "vote_average": 7.5,
+    "vote_count": 11078,
+  },
