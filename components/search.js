@@ -11,9 +11,9 @@ const Search = () => {
 
   const [_isLoading, setIsLoading] = useState(false);
 
-  const [_page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
 
-  const [_totalPages, setTotalPages] = useState(0)
+  const [total_pages, setTotal_Pages] = useState(0);
 
   function _displayLoading() {
     if(_isLoading){
@@ -28,7 +28,12 @@ const Search = () => {
   function _loadFilms(){
     setIsLoading(true)
     if (_searchedText.length>0) {
-    getFilmsFromApiWithSearchedText(_searchedText, (page+1)).then(data=> {setpage(data.page),setTotalPages(data.total_pages) ,setFilms[...films, ...data.results],setIsLoading(false)});
+    getFilmsFromApiWithSearchedText(_searchedText, (page+1)).then(data=> {
+      setPage(data.page),
+      setTotal_Pages(data.total_pages),
+      setIsLoading(false),
+      setFilms(data.results)
+    });
   };
 }
 
@@ -44,13 +49,13 @@ const Search = () => {
         <FlatList
           data={_films}
           keyExtractor={(item, index) => {return index.toString();}}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => console.log("onEndReached")}
           renderItem={({item, index}) => <FilmItem film={item}/>}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => {if(page<total_pages)_loadFilms()}}
         />
         {_displayLoading()}
       </View>
-    );
+    )
 };
 
 const styles = StyleSheet.create({
