@@ -5,7 +5,7 @@ import {getFilmsFromApiWithSearchedText} from '../API/TMDBAPI';
 
 const Search = () => {
 
-  const [_films, setFilms] = useState();
+  const [_films, setFilms] = useState([]);
   
   const [_searchedText, setSearchedText] = useState("");
 
@@ -23,29 +23,37 @@ const Search = () => {
         </View>
       )
     }
-  }
-
-  function _loadFilms(){
-    setIsLoading(true)
-    if (_searchedText.length>0) {
-    getFilmsFromApiWithSearchedText(_searchedText, (page+1)).then(data=> {
-      setPage(data.page),
-      setTotal_Pages(data.total_pages),
-      setIsLoading(false),
-      setFilms(data.results)
-    });
   };
-}
+  
+  function searchFilms(){
+    page= 0;
+    total_pages= 0;
+    _films = [];
+    console.log("Page : "+page+"/ Total de pages : "+total_pages+"Nbr de films : "+_films.length);
+    _loadFilms();
+  };
 
+function _loadFilms(){
+    setIsLoading(true);
+    if (_searchedText.length>0) {
+    getFilmsFromApiWithSearchedText(_searchedText, (page+1))
+    .then(data=> {
+      setPage(data.page);
+      setTotal_Pages(data.total_pages);
+      setIsLoading(false);
+      setFilms([..._films, ...data.results]);
+    })
+  };
+};
     return(
       <View style={styles.main_container}>
         <TextInput
         style={styles.textinput}
         placeholder="Titre du film"
         onChangeText={(text) => setSearchedText(text)}
-        onSubmitEditing={() => _loadFilms()}
+        onSubmitEditing={() => searchFilms()}
         />
-        <Button style={styles.button} title="Rechercher" onPress={() => _loadFilms()}/>
+        <Button style={styles.button} title="Rechercher" onPress={() => searchFilms()}/>
         <FlatList
           data={_films}
           keyExtractor={(item, index) => {return index.toString();}}
