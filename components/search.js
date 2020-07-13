@@ -25,13 +25,7 @@ const Search = () => {
     }
   };
   
-  function searchFilms(){
-    page= 0;
-    total_pages= 0;
-    _films = [];
-    console.log("Page : "+page+"/ Total de pages : "+total_pages+"Nbr de films : "+_films.length);
-    _loadFilms();
-  };
+
 
 function _loadFilms(){
     setIsLoading(true);
@@ -44,6 +38,13 @@ function _loadFilms(){
       setFilms([..._films, ...data.results]);
     })
   };
+};
+
+function searchFilms(page, total_pages ,_films){
+  page = 0;
+  total_pages = 0;
+  setFilms([]);
+  _loadFilms();
 };
     return(
       <View style={styles.main_container}>
@@ -58,7 +59,7 @@ function _loadFilms(){
           data={_films}
           keyExtractor={(item, index) => {return index.toString();}}
           renderItem={({item, index}) => <FilmItem film={item}/>}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.25}
           onEndReached={() => {if(page<total_pages)_loadFilms()}}
         />
         {_displayLoading()}
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
   textinput: {
     marginLeft: 5,
     marginRight: 5,
+    marginTop: 20,
     height: 50,
     borderColor: '#000000',
     borderWidth: 1,
